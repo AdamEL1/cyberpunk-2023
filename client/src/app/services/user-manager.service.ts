@@ -7,7 +7,15 @@ import { User } from '../classes/user';
 export class UserManagerService {
   private connectedUser: User | null = null;
 
-  constructor() { }
+  constructor() {
+    this.connectedUser = {
+      name: "adam", 
+      courses: [{title: "INF3710"}, {title: "second random"}],
+      Description: "ANY",
+      email: "holla@gmail.com",
+      school: "poly"
+    };
+   }
 
   connectUser(newUser: User): void {
     this.connectedUser = newUser;
@@ -15,5 +23,10 @@ export class UserManagerService {
 
   disconnectUser(): void {
     this.connectedUser = null;
+  }
+
+  // getters
+  getUser(): User | null {
+    return this.connectedUser;
   }
 }

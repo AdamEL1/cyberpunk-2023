@@ -1,0 +1,22 @@
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.subContainer{
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.coursesContainer{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.courseContainer{
+    border: solid black 1px;
+    margin-right: 20px;
+}

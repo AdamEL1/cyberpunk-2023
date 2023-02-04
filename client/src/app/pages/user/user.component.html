@@ -1,0 +1,20 @@
+<p>user works!</p>
+<div class="mainContainer">
+    <div>Insert Picture</div>
+    <div class="subContainer">
+        <span>Name</span>
+        <span>{{ userManager.getUser()?.name }}</span>
+    </div>
+    <div class="subContainer">
+        <span>School</span>
+        <span>{{ userManager.getUser()?.school }}</span>
+    </div>
+    <div class="coursesContainer">
+        <div class="courseContainer" *ngFor="let course of userManager.getUser()?.courses; index as i;">
+            <div class="subContainer">
+                <span>Title</span>
+                <span>{{ course.title }}</span>
+            </div>
+        </div>
+    </div>
+</div>

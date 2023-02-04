@@ -2,12 +2,12 @@
 <form class="mainForm">
     <div class="formContainer">
         <label for="username">Username</label>
-        <input type="text" id="username">
+        <input type="text" [formControl]="form[0]" id="username">
     </div>
 
     <div class="formContainer">
         <label for="password">Password</label>
-        <input type="text" id="password">
+        <input type="text" [formControl]="form[1]" id="password">
     </div>
     
     <button (click)="login()">Submit</button>

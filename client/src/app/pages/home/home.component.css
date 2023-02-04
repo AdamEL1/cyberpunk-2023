@@ -1,9 +1,11 @@
 .mainContainer{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.mainContainer button{
+.button{
     margin-bottom: 1em;
     width: 200px;
 }

@@ -1,0 +1,122 @@
+{
+  "191531293435230327": {
+      "name": "Patricia Manarazan",
+      "email": "patricia@polymtl.ca",
+      "university": "Polytechnique Montreal",
+      "courses": ["PHS2112","MTH2210A","LOG2810"],
+      "description": {
+        "creativity": 0,
+        "punctiality": 0,
+        "responsability": 0,
+        "organized": 0
+      }
+  },
+  "13476747838763953671": {
+    "name": "Claude Patate",
+    "email": "claude@polymtl.ca",
+    "university": "Polytechnique Montreal",
+    "courses": ["INF1010", "INF2010"],
+    "description": {
+      "creativity": 0,
+      "punctiality": 0,
+      "responsability": 0,
+      "organized": 0
+    }
+  },
+  "1927720545280234234": {
+    "name": "Mark Marc",
+    "email": "mark@polymtl.ca",
+    "university": "Polytechnique Montreal",
+    "courses": ["ELE3601","PHS2223"],
+    "description": {
+      "creativity": 0,
+      "punctiality": 0,
+      "responsability": 0,
+      "organized": 0
+    }
+  },  
+  "1646740053594676192": {
+    "name": "Alain Bine",
+    "email": "alain@polymtl.ca",
+    "university": "Polytechnique Montreal",
+    "courses": ["MTH1007"],
+    "description": {
+      "creativity": 0,
+      "punctiality": 0,
+      "responsability": 0,
+      "organized": 0
+    }
+  },
+  "2577711054308151925": {
+    "name": "Victoria Lunette",
+    "email": "victoria@polymtl.ca",
+    "university": "Polytechnique Montreal",
+    "courses": ["MTR6040","PHS9270","SSH3201"],
+    "description": {
+      "creativity": 0,
+      "punctiality": 0,
+      "responsability": 0,
+      "organized": 0
+    }
+  },
+  "8340543395256332519": {
+    "name": "Carl Pomme",
+    "email": "carl@polymtl.ca",
+    "university": "Polytechnique Montreal",
+    "courses": ["SSH3501","SSH3100"],
+    "description": {
+      "creativity": 0,
+      "punctiality": 0,
+      "responsability": 0,
+      "organized": 0
+    }
+  },
+  "10015025057681748252": {
+    "name": "Luc Kiwi",
+    "email": "luc@polymtl.ca",
+    "university": "Polytechnique Montreal",
+    "courses": ["PHS2112","INF8215","LOG2810"],
+    "description": {
+      "creativity": 0,
+      "punctiality": 0,
+      "responsability": 0,
+      "organized": 0
+    }
+  },
+  "17296701829773382222": {
+    "name": "Vanessa Banane",
+    "email": "vanessa@polymtl.ca",
+    "university": "Polytechnique Montreal",
+    "courses": ["MTR6040","INF8215","SSH3201"],
+    "description": {
+      "creativity": 0,
+      "punctiality": 0,
+      "responsability": 0,
+      "organized": 0
+    }
+  },
+  "4338675174566960589": {
+    "name": "Annette Carrottte",
+    "email": "annette@polymtl.ca",
+    "university": "Polytechnique Montreal",
+    "courses": ["MTH1007", "PHS9270","PHS2112"],
+    "description": {
+      "creativity": 0,
+      "punctiality": 0,
+      "responsability": 0,
+      "organized": 0
+    }
+  },
+  "7111291134334913106": {
+    "name": "Paule Poule",
+    "email": "paule@polymtl.ca",
+    "university": "Polytechnique Montreal",
+    "courses": ["MTH1007", "PHS9270","MTH2210A","LOG2810"],
+    "description": {
+      "creativity": 0,
+      "punctiality": 0,
+      "responsability": 0,
+      "organized": 0
+    }
+  }
+}

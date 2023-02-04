@@ -1,3 +1,7 @@
+body{
+    background-color:rgb(66, 129, 114, 0.35);
+}
+
 .mainContainer{
     display: flex;
     flex-direction: column;
@@ -8,4 +12,7 @@
 .button{
     margin-bottom: 1em;
     width: 200px;
+    background-color: #587A6E;
+    color: white;
 }
+  

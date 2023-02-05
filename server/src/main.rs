@@ -1,4 +1,5 @@
 #![allow(unused)]
+mod algo;
 mod courses;
 mod interface;
 mod users;
@@ -21,8 +22,8 @@ pub struct AppState {
 impl AppState {
     fn new() -> Self {
         Self {
-            users: Arc::new(RwLock::new(Users::from_file(DEFAULT_USER))),
-            courses: Arc::new(RwLock::new(Courses::from_file(DEFAULT_COURSES))),
+            users: Arc::new(RwLock::new(Users::default())),
+            courses: Arc::new(RwLock::new(Courses::default())),
         }
     }
 }
@@ -41,7 +42,7 @@ async fn main() -> tide::Result<()> {
     app.with(cors);
     app.at("/users/login").post(users::login);
     app.at("/users/register").post(users::register);
-    // app.at("/users/join_course").post(users::register);
+    app.at("/courses/join").post(users::register);
     app.at("/courses/register").post(courses::register);
     app.listen("127.0.0.1:8080").await?;
     Ok(())

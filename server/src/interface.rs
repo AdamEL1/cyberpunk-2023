@@ -24,13 +24,18 @@ pub struct UserInput {
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
-pub struct AddCourseInput {
+pub struct JoinCourseInput {
     pub name: String,
     pub password: String,
     pub course: CourseRegister,
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
-pub struct UserRegisterResult {
+pub struct StateResult {
     pub state: bool,
+}
+
+#[derive(Debug, Deserialize, Serialize, Clone)]
+pub struct CourseResult {
+    pub course: Vec<String>,
 }

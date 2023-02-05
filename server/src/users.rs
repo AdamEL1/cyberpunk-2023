@@ -1,5 +1,5 @@
 use crate::{
-    interface::{CourseRegister, UserInput, UserRegister, UserRegisterResult},
+    interface::{CourseRegister, JoinCourseInput, StateResult, UserInput, UserRegister},
     AppState,
 };
 use std::{
@@ -12,13 +12,13 @@ use std::{
 };
 use tide::{prelude::*, Request};
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct User {
     name: String,
     email: String,
     university: String,
     pub courses: Vec<String>,
-    description: Description,
+    pub description: Description,
 }
 
 impl Default for User {
@@ -49,6 +49,14 @@ impl Description {
             responsability,
             organized,
         }
+    }
+    pub fn to_array(&self) -> [isize; 4] {
+        [
+            self.creativity,
+            self.punctuality,
+            self.responsability,
+            self.organized,
+        ]
     }
 }
 
@@ -113,8 +121,8 @@ impl From<UserRegister> for UserId {
     }
 }
 
-impl UserRegisterResult {
-    fn new(state: bool) -> String {
+impl StateResult {
+    pub fn new(state: bool) -> String {
         serde_json::to_string(&Self { state }).unwrap()
     }
 }
@@ -125,23 +133,21 @@ pub async fn register(mut req: Request<AppState>) -> tide::Result {
         Ok(value) => value,
         Err(err) => {
             println!("An error occured: {}", err);
-            return Ok(UserRegisterResult::new(false).into());
+            return Ok(StateResult::new(false).into());
         }
     };
     let user_id: UserId = user.clone().into();
     {
         let mut write = req.state().courses.write().unwrap();
-        // write.add_user(&user);
+        // write.new_user(&user, user_id);
     }
     {
         let mut write = req.state().users.write().unwrap();
         write.insert(user_id, user.into());
         println!("{:?}", write.0);
     }
-    Ok(UserRegisterResult::new(true).into())
+    Ok(StateResult::new(true).into())
 }
-
-// pub async fn join_course(mut req: Request<AppState>) -> tide::Result {}
 
 pub async fn login(mut req: Request<AppState>) -> tide::Result {
     println!("Received POST at {}", req.url());

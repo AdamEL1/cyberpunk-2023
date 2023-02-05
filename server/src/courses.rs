@@ -1,5 +1,5 @@
 use crate::{
-    interface::CourseRegister,
+    interface::{CourseRegister, JoinCourseInput, StateResult, UserInput},
     users::{User, UserId, Users},
     AppState,
 };
@@ -50,18 +50,20 @@ impl Courses {
     pub fn insert(&mut self, course_id: String, course: Course) {
         self.0.insert(course_id, course);
     }
-    pub fn add_users(&mut self, users: &Users) {
-        for (user_id, user) in users.iter() {
-            self.add_user(user, *user_id);
+    pub fn new_user(&mut self, user: &User, user_id: UserId) {
+        for course in user.courses.iter() {
+            self.add_user(user_id, course);
         }
     }
-    pub fn add_user(&mut self, user: &User, user_id: UserId) {
-        for course in user.courses.iter() {
-            match self.0.get_mut(course) {
-                Some(value) => value.users.push(user_id),
-                None => self.insert(course.clone(), Course::with_user(course.clone(), user_id)),
-            };
-        }
+    pub fn add_user(&mut self, user_id: UserId, course: &String) {
+        match self.0.get_mut(course) {
+            Some(value) => {
+                if !value.users.contains(&user_id) {
+                    value.users.push(user_id)
+                }
+            }
+            None => self.insert(course.clone(), Course::with_user(course.clone(), user_id)),
+        };
     }
 }
 
@@ -83,4 +85,17 @@ pub async fn register(mut req: Request<AppState>) -> tide::Result {
     let mut write = req.state().courses.write().unwrap();
     write.insert(course.title.clone(), course.into());
     Ok("Ok\n".into())
+}
+
+pub async fn join(mut req: Request<AppState>) -> tide::Result {
+    println!("Received POST at {}", req.url());
+    let input: JoinCourseInput = req.body_json().await?;
+    let user_register = UserInput {
+        name: input.name,
+        password: input.password,
+    };
+    let user_id: UserId = user_register.into();
+    let mut write = req.state().courses.write().unwrap();
+    write.add_user(user_id, &input.course.title);
+    Ok(StateResult::new(true).into())
 }

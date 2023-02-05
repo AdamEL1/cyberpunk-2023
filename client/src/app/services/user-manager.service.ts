@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { getMockedDescription } from '../classes/description';
 import { User } from '../classes/user';
 
 @Injectable({
@@ -12,7 +13,7 @@ export class UserManagerService {
       name: "adam", 
       password: "salut",
       courses: [{title: "INF3710"}, {title: "second random"}],
-      Description: "ANY",
+      description: getMockedDescription(),
       email: "holla@gmail.com",
       school: "poly"
     };

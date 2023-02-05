@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Course } from 'src/app/classes/course';
+import { getMockedDescription } from 'src/app/classes/description';
 import { User } from 'src/app/classes/user';
 import { REGISTER_USER_ROUTE } from 'src/app/constants';
 import { CommunicationService } from 'src/app/services/communication.service';
@@ -40,7 +41,7 @@ export class RegisterComponent implements OnInit {
       courses: (this.form[FILED_INDEX.COURSES_FIELD_INDEX].value as string).split(',').map((value: string): Course => {
         return {title: value};
       }),
-      Description: ''
+      description: getMockedDescription()
     };
     console.log(user);
     const val = await this.communicationService.post<User, any>(user, REGISTER_USER_ROUTE);

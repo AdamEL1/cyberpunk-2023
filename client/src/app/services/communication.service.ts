@@ -6,14 +6,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CommunicationService {
-  private readonly BASE_URL: string = 'localhost:8080';
+  private readonly BASE_URL: string = 'http://localhost:8080';
 
   constructor(private readonly http: HttpClient) { }
 
   async get<T>(route: string){
     const endPoint: string = `${this.BASE_URL}/${route}`;
     console.log(`GET, at: ${endPoint}`);
-    return await this.observableToPromise(this.http.get(endPoint));
+    return await this.observableToPromise(this.http.get(endPoint, ));
   }
 
   async post<T, R>(body: T, route: string){

@@ -17,7 +17,7 @@ pub struct User {
     name: String,
     email: String,
     university: String,
-    courses: Vec<String>,
+    pub courses: Vec<String>,
     description: Description,
 }
 
@@ -34,18 +34,18 @@ impl Default for User {
 }
 
 #[derive(Debug, Deserialize, Serialize, Default, Clone)]
-struct Description {
+pub struct Description {
     creativity: isize,
-    punctiality: isize,
+    punctuality: isize,
     responsability: isize,
     organized: isize,
 }
 
 impl Description {
-    fn new(creativity: isize, punctiality: isize, responsability: isize, organized: isize) -> Self {
+    fn new(creativity: isize, punctuality: isize, responsability: isize, organized: isize) -> Self {
         Self {
             creativity,
-            punctiality,
+            punctuality,
             responsability,
             organized,
         }
@@ -86,7 +86,7 @@ impl From<UserRegister> for User {
         Self {
             name: user.name,
             email: user.email,
-            university: user.university,
+            university: user.school,
             courses: user.courses.iter().map(|x| x.name.clone()).collect(),
             description: Description::default(),
         }
@@ -144,11 +144,16 @@ pub async fn register(mut req: Request<AppState>) -> tide::Result {
 
 pub async fn login(mut req: Request<AppState>) -> tide::Result {
     println!("Received POST at {}", req.url());
-    let user_id: UserId = req.body_json::<UserInput>().await?.into();
-    let read = req.state().users.read().unwrap();
-    let user = match read.get(user_id) {
-        Some(user) => serde_json::to_string_pretty(user)?,
-        None => serde_json::to_string_pretty(&User::default())?,
-    };
-    Ok(user.into())
+    // let user_id: UserId = req.body_json::<UserInput>().await?.into();
+    let received = req.body_string().await?;
+    println!("{}", received);
+    let parsed = serde_json::from_str::<UserInput>(&received);
+    println!("{:?}", parsed);
+    // let read = req.state().users.read().unwrap();
+    // let user = match read.get(user_id) {
+    //     Some(user) => serde_json::to_string_pretty(user)?,
+    //     None => serde_json::to_string_pretty(&User::default())?,
+    // };
+    Ok("Sus among us".into())
+    // Ok(user.into())
 }

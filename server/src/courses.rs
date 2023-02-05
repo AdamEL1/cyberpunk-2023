@@ -1,6 +1,6 @@
 use crate::{
     interface::CourseRegister,
-    users::{UserId, Users},
+    users::{User, UserId, Users},
     AppState,
 };
 use serde::{Deserialize, Serialize};
@@ -15,6 +15,15 @@ use tide::{prelude::*, Request};
 pub struct Course {
     name: String,
     users: Vec<UserId>,
+}
+
+impl Course {
+    fn with_user(name: String, user_id: UserId) -> Self {
+        Self {
+            name,
+            users: vec![user_id],
+        }
+    }
 }
 
 #[derive(Debug, Default, Serialize, Deserialize)]
@@ -41,11 +50,19 @@ impl Courses {
     pub fn insert(&mut self, course_id: String, course: Course) {
         self.0.insert(course_id, course);
     }
-    // pub fn add_user(&mut self, users: &Users) {
-    //     for (user_id, user) in users.iter() {
-    //         for course in user.
-    //     }
-    // }
+    pub fn add_users(&mut self, users: &Users) {
+        for (user_id, user) in users.iter() {
+            self.add_user(user, *user_id);
+        }
+    }
+    pub fn add_user(&mut self, user: &User, user_id: UserId) {
+        for course in user.courses.iter() {
+            match self.0.get_mut(course) {
+                Some(value) => value.users.push(user_id),
+                None => self.insert(course.clone(), Course::with_user(course.clone(), user_id)),
+            };
+        }
+    }
 }
 
 impl From<CourseRegister> for Course {

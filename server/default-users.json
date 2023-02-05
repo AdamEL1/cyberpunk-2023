@@ -6,7 +6,7 @@
       "courses": ["PHS2112","MTH2210A","LOG2810"],
       "description": {
         "creativity": 0,
-        "punctiality": 0,
+        "punctuality": 0,
         "responsability": 0,
         "organized": 0
       }
@@ -18,7 +18,7 @@
     "courses": ["INF1010", "INF2010"],
     "description": {
       "creativity": 0,
-      "punctiality": 0,
+      "punctuality": 0,
       "responsability": 0,
       "organized": 0
     }
@@ -30,7 +30,7 @@
     "courses": ["ELE3601","PHS2223"],
     "description": {
       "creativity": 0,
-      "punctiality": 0,
+      "punctuality": 0,
       "responsability": 0,
       "organized": 0
     }
@@ -42,7 +42,7 @@
     "courses": ["MTH1007"],
     "description": {
       "creativity": 0,
-      "punctiality": 0,
+      "punctuality": 0,
       "responsability": 0,
       "organized": 0
     }
@@ -54,7 +54,7 @@
     "courses": ["MTR6040","PHS9270","SSH3201"],
     "description": {
       "creativity": 0,
-      "punctiality": 0,
+      "punctuality": 0,
       "responsability": 0,
       "organized": 0
     }
@@ -66,7 +66,7 @@
     "courses": ["SSH3501","SSH3100"],
     "description": {
       "creativity": 0,
-      "punctiality": 0,
+      "punctuality": 0,
       "responsability": 0,
       "organized": 0
     }
@@ -78,7 +78,7 @@
     "courses": ["PHS2112","INF8215","LOG2810"],
     "description": {
       "creativity": 0,
-      "punctiality": 0,
+      "punctuality": 0,
       "responsability": 0,
       "organized": 0
     }
@@ -90,7 +90,7 @@
     "courses": ["MTR6040","INF8215","SSH3201"],
     "description": {
       "creativity": 0,
-      "punctiality": 0,
+      "punctuality": 0,
       "responsability": 0,
       "organized": 0
     }
@@ -102,7 +102,7 @@
     "courses": ["MTH1007", "PHS9270","PHS2112"],
     "description": {
       "creativity": 0,
-      "punctiality": 0,
+      "punctuality": 0,
       "responsability": 0,
       "organized": 0
     }
@@ -114,7 +114,7 @@
     "courses": ["MTH1007", "PHS9270","MTH2210A","LOG2810"],
     "description": {
       "creativity": 0,
-      "punctiality": 0,
+      "punctuality": 0,
       "responsability": 0,
       "organized": 0
     }

@@ -12,10 +12,10 @@ use std::{
 };
 use tide::{prelude::*, Request};
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Default, Serialize, Deserialize, Clone)]
 pub struct Course {
     name: String,
-    users: Vec<UserId>,
+    pub users: Vec<UserId>,
 }
 
 impl Course {
@@ -27,7 +27,7 @@ impl Course {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Default, Serialize, Deserialize, Clone)]
 pub struct Courses(HashMap<String, Course>);
 
 impl Courses {

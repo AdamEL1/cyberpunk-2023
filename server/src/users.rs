@@ -1,4 +1,5 @@
 use crate::{
+    algo::find_matches,
     interface::{CourseRegister, JoinCourseInput, StateResult, UserInput, UserRegister},
     prelude::*,
     AppState,
@@ -17,7 +18,7 @@ use tide::{prelude::*, Request};
 pub struct User {
     name: String,
     email: String,
-    university: String,
+    school: String,
     pub courses: Vec<String>,
     pub description: Description,
 }
@@ -27,7 +28,7 @@ impl Default for User {
         Self {
             name: "".into(),
             email: "".into(),
-            university: "".into(),
+            school: "".into(),
             courses: vec![],
             description: Description::default(),
         }
@@ -100,7 +101,7 @@ impl From<UserRegister> for User {
         Self {
             name: user.name,
             email: user.email,
-            university: user.school,
+            school: user.school,
             courses: user.courses.iter().map(|x| x.title.clone()).collect(),
             description: Description::default(),
         }
@@ -120,6 +121,15 @@ impl From<UserInput> for UserId {
 
 impl From<UserRegister> for UserId {
     fn from(value: UserRegister) -> UserId {
+        let mut state = DefaultHasher::new();
+        value.name.hash(&mut state);
+        value.password.hash(&mut state);
+        UserId(state.finish())
+    }
+}
+
+impl From<&JoinCourseInput> for UserId {
+    fn from(value: &JoinCourseInput) -> UserId {
         let mut state = DefaultHasher::new();
         value.name.hash(&mut state);
         value.password.hash(&mut state);
@@ -163,4 +173,22 @@ pub async fn login(mut req: Request<AppState>) -> tide::Result {
         None => serde_json::to_string_pretty(&User::default())?,
     };
     Ok(user.into())
+}
+
+pub async fn select(mut req: Request<AppState>) -> tide::Result {
+    println!("Received POST at {}", req.url());
+    let input = req.body_json::<JoinCourseInput>().await?;
+    let user_id: UserId = (&input).into();
+    let read_user = req.state().users.read().unwrap();
+    let user = read_user.get(user_id).unwrap();
+    let read_courses = req.state().courses.read().unwrap();
+    let course = read_courses.get(input.course.title).unwrap();
+    let other_users = course
+        .users
+        .iter()
+        .filter(|x| **x != user_id)
+        .map(|user| read_user.get(*user).unwrap())
+        .collect();
+    let result = find_matches(user.clone(), other_users, course.clone());
+    Ok(serde_json::to_string_pretty(&result)?.into())
 }

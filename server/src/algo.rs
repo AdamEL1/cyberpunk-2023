@@ -8,12 +8,12 @@ use crate::{
     users::User,
 };
 
-pub fn find_matches(user: User, other_users: Vec<&User>, course: Course) -> WeightedUserList {
+pub fn find_matches(user: User, other_users: Vec<User>, course: Course) -> WeightedUserList {
     let mut users_match = vec![];
     let self_desc = user.description.to_array();
     let mut scores = [0; 4];
     let mean_user: isize = user.description.to_array().iter().sum();
-    for (i, other_user) in other_users.into_iter().enumerate() {
+    for (i, other_user) in other_users.iter().enumerate() {
         let user_score: isize = other_user
             .description
             .to_array()

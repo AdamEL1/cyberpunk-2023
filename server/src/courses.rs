@@ -14,7 +14,7 @@ use tide::{prelude::*, Request};
 
 #[derive(Debug, Default, Serialize, Deserialize, Clone)]
 pub struct Course {
-    name: String,
+    pub name: String,
     pub users: Vec<UserId>,
 }
 

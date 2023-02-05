@@ -193,7 +193,11 @@ pub async fn select(mut req: Request<AppState>) -> tide::Result {
         .users
         .iter()
         .filter(|x| **x != user_id)
-        .map(|user| read_user.get(*user).unwrap())
+        .map(|user| read_user.get(*user).unwrap().clone())
+        .map(|mut user| {
+            user.email = format!("mailto:{}?Subject=Partenaire%20de%20laboratoire%20pour%20le%20cours%20{}&Body=Je%20suis%20intéressé%20à%20être%20votre%20partenaire%20de%20laboratoire%20pour%20le%20cours%20.%0A%0A{}", user.email, course.name, user.name);
+            user
+        })
         .collect();
     let result = find_matches(user.clone(), other_users, course.clone());
     Ok(serde_json::to_string_pretty(&result)?.into())

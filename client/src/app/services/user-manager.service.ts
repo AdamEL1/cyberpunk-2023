@@ -20,6 +20,14 @@ export class UserManagerService {
       email: "holla@gmail.com",
       school: "poly"
     };
+
+    this.suggestedUsers = [
+      {user: this.connectedUser, weight: 1},
+      {user: this.connectedUser, weight: 2},
+      {user: this.connectedUser, weight: 3},
+      {user: this.connectedUser, weight: 4},
+      {user: this.connectedUser, weight: 5},
+    ];
    }
 
   connectUser(newUser: User): void {

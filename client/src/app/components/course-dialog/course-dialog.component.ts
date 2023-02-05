@@ -29,8 +29,10 @@ export class CourseDialogComponent {
     };
     console.log(joinData);
     const state: {state: boolean} = await this.communicationService.post<CourseJoinData, {state: boolean}>(joinData, ADD_COURSE_ROUTE);
+    if(!state.state) return;
+    this.userManager.getUser()!.courses.push(course);
     this.courseInput.reset();
-
+    this.dialogRef.close();
   }
 
   isValid(): boolean{

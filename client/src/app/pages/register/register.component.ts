@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
       Description: ''
     };
     console.log(user);
-    await this.communicationService.post();
+    //await this.communicationService.post<User, >();
     this.clearForm();
   }
 

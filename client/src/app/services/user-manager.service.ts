@@ -10,6 +10,7 @@ export class UserManagerService {
   constructor() {
     this.connectedUser = {
       name: "adam", 
+      password: "salut",
       courses: [{title: "INF3710"}, {title: "second random"}],
       Description: "ANY",
       email: "holla@gmail.com",

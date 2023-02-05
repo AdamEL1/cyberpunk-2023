@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { getMockedDescription } from '../classes/description';
+import { SuggestedUser } from '../classes/suggestedUser';
 import { User } from '../classes/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserManagerService {
-  public suggestedUsers: User[] = []; 
+  public suggestedUsers: SuggestedUser[] = []; 
 
   private connectedUser: User | null = null;
 

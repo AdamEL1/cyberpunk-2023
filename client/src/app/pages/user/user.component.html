@@ -2,11 +2,9 @@
     <app-secondary-header></app-secondary-header>
     <div id="coursesTag">Courses:</div>
     <div class="coursesContainer">
-        <div class="courseContainer" *ngFor="let course of userManager.getUser()?.courses; index as i;" (click)="getSuggestedUsers(course)">
-            <div class="subContainer">
-                <span class="title">{{ course.title }}</span>
-            </div>
-        </div>
+        <mat-card class="courseContainer" *ngFor="let course of userManager.getUser()?.courses; index as i;" (click)="getSuggestedUsers(course)">
+            <mat-card-content class="title">{{ course.title }}</mat-card-content>
+        </mat-card>
     </div>
     <div class="buttonContainer">
         <button mat-raised-button (click)="openDialog()">Add classe</button>

@@ -41,6 +41,6 @@ async fn main() -> tide::Result<()> {
     app.at("/users/select").post(users::select);
     app.at("/courses/join").post(courses::join);
     app.at("/courses/register").post(courses::register);
-    app.listen("127.0.0.1:8080").await?;
+    app.listen("0.0.0.0:80").await?;
     Ok(())
 }

@@ -5,15 +5,15 @@
         <form class="mainForm">
             <div class="formContainer">
                 <label for="username">Username:</label>
-                <input type="text" [formControl]="form[0]" id="username">
+                <input type="text" [formControl]="form[0]" id="username" required>
             </div>
         
             <div class="formContainer">
                 <label for="password">Password:</label>
-                <input type="text" [formControl]="form[1]" id="password">
+                <input type="text" [formControl]="form[1]" id="password" required>
             </div>
             
-            <button mat-raised-button (click)="login()">Login</button>
+            <button mat-raised-button [disabled]="isFormValid" (click)="login()">Login</button>
         </form>
         <span>Not registered? Sign up <a routerLink="/register">HERE</a></span>
     </div>

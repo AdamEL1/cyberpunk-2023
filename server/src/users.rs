@@ -17,30 +17,7 @@ pub struct User {
     email: String,
     school: String,
     pub courses: Vec<String>,
-    pub description: Description,
-}
-
-#[derive(Debug, Deserialize, Serialize, Default, Clone)]
-pub struct Description {
-    creative: isize,
-    punctual: isize,
-    responsible: isize,
-    organized: isize,
-    sociable: isize,
-    meticulous: isize,
-}
-
-impl Description {
-    pub fn to_array(&self) -> [isize; 6] {
-        [
-            self.creative,
-            self.punctual,
-            self.responsible,
-            self.organized,
-            self.sociable,
-            self.meticulous,
-        ]
-    }
+    pub description: [isize; 6],
 }
 
 #[derive(Debug, Deserialize, Serialize, Default)]
@@ -81,7 +58,7 @@ impl From<UserRegister> for User {
             email: user.email,
             school: user.school,
             courses: user.courses.iter().map(|x| x.title.clone()).collect(),
-            description: Description::default(),
+            description: [0; 6],
         }
     }
 }

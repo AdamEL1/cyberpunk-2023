@@ -120,18 +120,14 @@ impl UserRegisterResult {
 }
 
 pub async fn register(mut req: Request<AppState>) -> tide::Result {
+    println!("Received POST at {}", req.url());
     let user = match req.body_json::<UserRegister>().await {
         Ok(value) => value,
         Err(err) => {
-            println!(
-                "Received POST at {} but an error occured: {}",
-                req.url(),
-                err
-            );
+            println!("An error occured: {}", err);
             return Ok(UserRegisterResult::new(false).into());
         }
     };
-    println!("Received POST at {}: {}", req.url(), user.name);
     let user_id: UserId = user.clone().into();
     // {
     //     let mut write = req.state().courses.write().unwrap();
@@ -147,12 +143,12 @@ pub async fn register(mut req: Request<AppState>) -> tide::Result {
 // pub async fn join_course(mut req: Request<AppState>) -> tide::Result {}
 
 pub async fn login(mut req: Request<AppState>) -> tide::Result {
+    println!("Received POST at {}", req.url());
     let user_id: UserId = req.body_json::<UserInput>().await?.into();
     let read = req.state().users.read().unwrap();
     let user = match read.get(user_id) {
         Some(user) => serde_json::to_string_pretty(user)?,
         None => serde_json::to_string_pretty(&User::default())?,
     };
-    println!("Received POST at {}: UserID({})", req.url(), user_id.0);
     Ok(user.into())
 }

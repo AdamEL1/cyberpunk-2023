@@ -58,12 +58,12 @@ impl From<CourseRegister> for Course {
 }
 
 pub async fn register(mut req: Request<AppState>) -> tide::Result {
+    println!("Received POST for {}", req.url());
     let course = match req.body_json::<CourseRegister>().await {
         Ok(value) => value,
         Err(err) => return Ok(format!("{}\n", err).into()),
     };
     let mut write = req.state().courses.write().unwrap();
-    println!("Received POST for {}: {}", req.url(), course.name);
     write.insert(course.name.clone(), course.into());
     Ok("Ok\n".into())
 }

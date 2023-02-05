@@ -177,7 +177,13 @@ pub async fn login(mut req: Request<AppState>) -> tide::Result {
 
 pub async fn select(mut req: Request<AppState>) -> tide::Result {
     println!("Received POST at {}", req.url());
-    let input = req.body_json::<JoinCourseInput>().await?;
+    let input = match req.body_json::<JoinCourseInput>().await {
+        Ok(value) => value,
+        Err(err) => {
+            println!("{}", err);
+            return Ok("".into());
+        }
+    };
     let user_id: UserId = (&input).into();
     let read_user = req.state().users.read().unwrap();
     let user = read_user.get(user_id).unwrap();

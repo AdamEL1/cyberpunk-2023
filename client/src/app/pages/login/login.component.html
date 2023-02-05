@@ -12,7 +12,7 @@
                 <label for="password">Password:</label>
                 <input type="text" [formControl]="form[1]" id="password" required>
             </div>
-            
+            <span class="error" *ngIf="!loginState">Invalid credentials, please try again!</span>
             <button mat-raised-button [disabled]="isFormValid" (click)="login()">Login</button>
         </form>
         <span>Not registered? Sign up <a routerLink="/register">HERE</a></span>

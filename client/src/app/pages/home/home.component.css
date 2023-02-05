@@ -2,6 +2,10 @@ body{
     background-color:rgb(66, 129, 114, 0.35);
 }
 
+img{
+    margin-bottom: 10%;
+}
+
 .mainContainer{
     display: flex;
     flex-direction: column;

@@ -1,4 +1,4 @@
-#![allow(unused)]
+// #![allow(unused)]
 mod algo;
 mod courses;
 mod interface;

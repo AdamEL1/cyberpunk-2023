@@ -1,9 +1,6 @@
-use tide::{prelude::*, Request};
+use tide::prelude::*;
 
-use crate::{
-    courses::Course,
-    users::{Description, User},
-};
+use crate::users::{Description, User};
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct CourseRegister {

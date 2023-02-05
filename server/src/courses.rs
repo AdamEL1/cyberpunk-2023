@@ -1,16 +1,15 @@
 use crate::{
     interface::{CourseRegister, JoinCourseInput, StateResult, UserInput, UserRegister},
-    prelude::{DEFAULT_COURSES, DEFAULT_USERS},
-    users::{User, UserId, Users},
+    prelude::*,
+    users::UserId,
     AppState,
 };
 use serde::{Deserialize, Serialize};
 use std::{
-    collections::{hash_map::DefaultHasher, HashMap},
+    collections::HashMap,
     fs::{self, File},
-    hash::{Hash, Hasher},
 };
-use tide::{prelude::*, Request};
+use tide::Request;
 
 #[derive(Debug, Default, Serialize, Deserialize, Clone)]
 pub struct Course {

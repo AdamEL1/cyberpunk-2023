@@ -1,9 +1,12 @@
 use crate::{
-    interface::{UserInput, UserRegister},
+    interface::{CourseRegister, UserInput, UserRegister, UserRegisterResult},
     AppState,
 };
 use std::{
-    collections::{hash_map::DefaultHasher, HashMap},
+    collections::{
+        hash_map::{DefaultHasher, Iter},
+        HashMap,
+    },
     fs::File,
     hash::{Hash, Hasher},
 };
@@ -73,6 +76,9 @@ impl Users {
     pub fn insert(&mut self, user_id: UserId, user: User) {
         self.0.insert(user_id, user);
     }
+    pub fn iter(&self) -> Iter<UserId, User> {
+        self.0.iter()
+    }
 }
 
 impl From<UserRegister> for User {
@@ -107,33 +113,42 @@ impl From<UserRegister> for UserId {
     }
 }
 
+impl UserRegisterResult {
+    fn new(state: bool) -> String {
+        serde_json::to_string(&Self { state }).unwrap()
+    }
+}
+
 pub async fn register(mut req: Request<AppState>) -> tide::Result {
+    println!("Received POST at {}", req.url());
     let user = match req.body_json::<UserRegister>().await {
         Ok(value) => value,
-        Err(err) => return Ok(format!("{}\n", err).into()),
+        Err(err) => {
+            println!("An error occured: {}", err);
+            return Ok(UserRegisterResult::new(false).into());
+        }
     };
-    println!("Received POST at {}: {}", req.url(), user.name);
     let user_id: UserId = user.clone().into();
-    {
-        let mut write = req.state().courses.write().unwrap();
-        write.add_user(&user_id);
-    }
+    // {
+    //     let mut write = req.state().courses.write().unwrap();
+    //     write.add_user(&user);
+    // }
     {
         let mut write = req.state().users.write().unwrap();
         write.insert(user_id, user.into());
     }
-    Ok(format!("Ok\n").into())
+    Ok(UserRegisterResult::new(true).into())
 }
 
 // pub async fn join_course(mut req: Request<AppState>) -> tide::Result {}
 
 pub async fn login(mut req: Request<AppState>) -> tide::Result {
+    println!("Received POST at {}", req.url());
     let user_id: UserId = req.body_json::<UserInput>().await?.into();
     let read = req.state().users.read().unwrap();
     let user = match read.get(user_id) {
         Some(user) => serde_json::to_string_pretty(user)?,
         None => serde_json::to_string_pretty(&User::default())?,
     };
-    println!("Received POST at {}: UserID({})", req.url(), user_id.0);
     Ok(user.into())
 }

@@ -5,6 +5,8 @@ mod users;
 use courses::Courses;
 use std::sync::Arc;
 use std::sync::RwLock;
+use tide::http::headers::HeaderValue;
+use tide::security::{CorsMiddleware, Origin};
 use users::Users;
 
 const DEFAULT_USER: &str = "./default-users.json";
@@ -27,7 +29,14 @@ impl AppState {
 
 #[tokio::main]
 async fn main() -> tide::Result<()> {
+    let cors = CorsMiddleware::new()
+        .allow_methods("POST".parse::<HeaderValue>().unwrap())
+        .allow_origin(Origin::from("*"))
+        .allow_credentials(false);
     let state = AppState::new();
+    // for (user_id, _) in state.users.read().unwrap().iter() {
+    //     state.courses.
+    // }
     let mut app = tide::with_state(state);
     app.at("/users/login").post(users::login);
     app.at("/users/register").post(users::register);

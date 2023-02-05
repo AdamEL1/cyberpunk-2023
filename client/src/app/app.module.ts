@@ -14,6 +14,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CourseDialogComponent } from './components/course-dialog/course-dialog.component';
+import { SuggestedUsersComponent } from './pages/suggested-users/suggested-users.component';
+import { SecondaryHeaderComponent } from './components/secondary-header/secondary-header.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +23,9 @@ import { CourseDialogComponent } from './components/course-dialog/course-dialog.
     HomeComponent,
     RegisterComponent,
     UserComponent,
-    CourseDialogComponent
+    CourseDialogComponent,
+    SuggestedUsersComponent,
+    SecondaryHeaderComponent
   ],
   imports: [
     BrowserModule,

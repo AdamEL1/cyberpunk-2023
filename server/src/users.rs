@@ -1,20 +1,17 @@
 use crate::{
     algo::find_matches,
-    interface::{CourseRegister, JoinCourseInput, StateResult, UserInput, UserRegister},
+    interface::{JoinCourseInput, StateResult, UserInput, UserRegister},
     prelude::*,
     AppState,
 };
 use std::{
-    collections::{
-        hash_map::{DefaultHasher, Iter},
-        HashMap,
-    },
+    collections::{hash_map::DefaultHasher, HashMap},
     fs::{self, File},
     hash::{Hash, Hasher},
 };
 use tide::{prelude::*, Request};
 
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize, Default)]
 pub struct User {
     name: String,
     email: String,
@@ -23,41 +20,25 @@ pub struct User {
     pub description: Description,
 }
 
-impl Default for User {
-    fn default() -> Self {
-        Self {
-            name: "".into(),
-            email: "".into(),
-            school: "".into(),
-            courses: vec![],
-            description: Description::default(),
-        }
-    }
-}
-
 #[derive(Debug, Deserialize, Serialize, Default, Clone)]
 pub struct Description {
-    creativity: isize,
-    punctuality: isize,
-    responsability: isize,
+    creative: isize,
+    punctual: isize,
+    responsible: isize,
     organized: isize,
+    sociable: isize,
+    meticulous: isize,
 }
 
 impl Description {
-    fn new(creativity: isize, punctuality: isize, responsability: isize, organized: isize) -> Self {
-        Self {
-            creativity,
-            punctuality,
-            responsability,
-            organized,
-        }
-    }
-    pub fn to_array(&self) -> [isize; 4] {
+    pub fn to_array(&self) -> [isize; 6] {
         [
-            self.creativity,
-            self.punctuality,
-            self.responsability,
+            self.creative,
+            self.punctual,
+            self.responsible,
             self.organized,
+            self.sociable,
+            self.meticulous,
         ]
     }
 }
@@ -90,9 +71,6 @@ impl Users {
     pub fn insert(&mut self, user_id: UserId, user: User) {
         self.0.insert(user_id, user);
         self.to_file(DEFAULT_USERS);
-    }
-    pub fn iter(&self) -> Iter<UserId, User> {
-        self.0.iter()
     }
 }
 
@@ -199,6 +177,6 @@ pub async fn select(mut req: Request<AppState>) -> tide::Result {
             user
         })
         .collect();
-    let result = find_matches(user.clone(), other_users, course.clone());
+    let result = find_matches(user.clone(), other_users);
     Ok(serde_json::to_string_pretty(&result)?.into())
 }

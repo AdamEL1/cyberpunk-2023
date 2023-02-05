@@ -14,10 +14,15 @@
             </div>
 
             <div class="formContainer">
-                <label for="password">University</label>
+                <label for="university">University</label>
                 <input type="text" [formControl]="form[2]" id="university">
             </div>
             
+            <div class="formContainer">
+                <label for="courses">Courses (separated by ',' ex: INF3710,MTH1101)</label>
+                <input type="text" [formControl]="form[3]" id="courses">
+            </div>
+
             <button mat-raised-button (click)="register()">Register</button>
         </form>
     </div>

@@ -2,7 +2,7 @@
     <app-secondary-header></app-secondary-header>
     <div id="coursesTag">Courses:</div>
     <div class="coursesContainer">
-        <div class="courseContainer" *ngFor="let course of userManager.getUser()?.courses; index as i;">
+        <div class="courseContainer" *ngFor="let course of userManager.getUser()?.courses; index as i;" (click)="getSuggestedUsers(course.title)">
             <div class="subContainer">
                 <span class="title">{{ course.title }}</span>
             </div>

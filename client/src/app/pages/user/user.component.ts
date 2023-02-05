@@ -16,4 +16,8 @@ export class UserComponent {
     const dialogRef = this.dialog.open(CourseDialogComponent);
   }
 
+  async getSuggestedUsers(courseTitle: string){
+    console.log(courseTitle);
+  }
+
 }

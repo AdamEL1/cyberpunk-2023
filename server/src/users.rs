@@ -1,13 +1,13 @@
-use crate::AppState;
+use crate::{
+    interface::{UserInput, UserRegister},
+    AppState,
+};
 use std::{
     collections::{hash_map::DefaultHasher, HashMap},
     fs::File,
     hash::{Hash, Hasher},
-    io::BufReader,
 };
 use tide::{prelude::*, Request};
-
-const NB_ATTRIBUTES: usize = 5;
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct User {
@@ -30,7 +30,7 @@ impl Default for User {
     }
 }
 
-#[derive(Debug, Deserialize, Serialize, Default)]
+#[derive(Debug, Deserialize, Serialize, Default, Clone)]
 struct Description {
     creativity: isize,
     punctiality: isize,
@@ -49,16 +49,10 @@ impl Description {
     }
 }
 
-#[derive(Debug, Deserialize, Serialize)]
-struct Course {}
-
 #[derive(Debug, Deserialize, Serialize, Default)]
 pub struct Users(HashMap<UserId, User>);
 
 impl Users {
-    pub fn new() -> Self {
-        Self(HashMap::new())
-    }
     pub fn from_file(filepath: &str) -> Self {
         let Ok(file) = File::open(filepath) else {
             println!("Error finding {}", filepath);
@@ -81,10 +75,16 @@ impl Users {
     }
 }
 
-#[derive(Debug, Deserialize, Serialize, Clone)]
-struct UserInput {
-    name: String,
-    password: String,
+impl From<UserRegister> for User {
+    fn from(user: UserRegister) -> Self {
+        Self {
+            name: user.name,
+            email: user.email,
+            university: user.university,
+            courses: user.courses.iter().map(|x| x.name.clone()).collect(),
+            description: Description::default(),
+        }
+    }
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone, Copy, Eq, PartialEq, Hash)]
@@ -93,17 +93,47 @@ impl From<UserInput> for UserId {
     fn from(value: UserInput) -> UserId {
         let mut state = DefaultHasher::new();
         value.name.hash(&mut state);
+        value.password.hash(&mut state);
+        UserId(state.finish())
+    }
+}
+
+impl From<UserRegister> for UserId {
+    fn from(value: UserRegister) -> UserId {
+        let mut state = DefaultHasher::new();
         value.name.hash(&mut state);
+        value.password.hash(&mut state);
         UserId(state.finish())
     }
 }
 
 pub async fn register(mut req: Request<AppState>) -> tide::Result {
-    let user_input: UserId = req.body_json::<UserInput>().await?.into();
+    let user = match req.body_json::<UserRegister>().await {
+        Ok(value) => value,
+        Err(err) => return Ok(format!("{}\n", err).into()),
+    };
+    println!("Received POST at {}: {}", req.url(), user.name);
+    let user_id: UserId = user.clone().into();
+    {
+        let mut write = req.state().courses.write().unwrap();
+        write.add_user(&user_id);
+    }
+    {
+        let mut write = req.state().users.write().unwrap();
+        write.insert(user_id, user.into());
+    }
+    Ok(format!("Ok\n").into())
+}
+
+// pub async fn join_course(mut req: Request<AppState>) -> tide::Result {}
+
+pub async fn login(mut req: Request<AppState>) -> tide::Result {
+    let user_id: UserId = req.body_json::<UserInput>().await?.into();
     let read = req.state().users.read().unwrap();
-    let user = match read.get(user_input) {
+    let user = match read.get(user_id) {
         Some(user) => serde_json::to_string_pretty(user)?,
         None => serde_json::to_string_pretty(&User::default())?,
     };
+    println!("Received POST at {}: UserID({})", req.url(), user_id.0);
     Ok(user.into())
 }

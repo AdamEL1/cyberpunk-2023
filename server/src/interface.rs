@@ -1,6 +1,9 @@
 use tide::{prelude::*, Request};
 
-use crate::{courses::Course, users::Description};
+use crate::{
+    courses::Course,
+    users::{Description, User},
+};
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct CourseRegister {
@@ -38,4 +41,15 @@ pub struct StateResult {
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct CourseResult {
     pub course: Vec<String>,
+}
+
+#[derive(Debug, Deserialize, Serialize, Clone)]
+pub struct WeightedUserList {
+    pub data: Vec<WeightedUser>,
+}
+
+#[derive(Debug, Deserialize, Serialize, Clone)]
+pub struct WeightedUser {
+    pub user: User,
+    pub weight: f64,
 }

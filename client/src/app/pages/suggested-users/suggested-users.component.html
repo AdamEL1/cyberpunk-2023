@@ -5,6 +5,7 @@
         <div class="userContainer" *ngFor="let user of userManager.suggestedUsers; index as i;">
             <div class="subContainer">
                 <span class="title">{{ user.user.name }}</span>
+                <p>{{ user.user.description }}</p>
             </div>
             <a href="{{email}}">
                 <button mat-raised-button>Select</button>

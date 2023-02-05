@@ -129,10 +129,10 @@ pub async fn register(mut req: Request<AppState>) -> tide::Result {
         }
     };
     let user_id: UserId = user.clone().into();
-    {
-        let mut write = req.state().courses.write().unwrap();
-        // write.add_user(&user.into());
-    }
+    // {
+    //     let mut write = req.state().courses.write().unwrap();
+    //     write.add_user(&user);
+    // }
     {
         let mut write = req.state().users.write().unwrap();
         write.insert(user_id, user.into());
@@ -144,11 +144,16 @@ pub async fn register(mut req: Request<AppState>) -> tide::Result {
 
 pub async fn login(mut req: Request<AppState>) -> tide::Result {
     println!("Received POST at {}", req.url());
-    let user_id: UserId = req.body_json::<UserInput>().await?.into();
-    let read = req.state().users.read().unwrap();
-    let user = match read.get(user_id) {
-        Some(user) => serde_json::to_string_pretty(user)?,
-        None => serde_json::to_string_pretty(&User::default())?,
-    };
-    Ok(user.into())
+    // let user_id: UserId = req.body_json::<UserInput>().await?.into();
+    let received = req.body_string().await?;
+    println!("{}", received);
+    let parsed = serde_json::from_str::<UserInput>(&received);
+    println!("{:?}", parsed);
+    // let read = req.state().users.read().unwrap();
+    // let user = match read.get(user_id) {
+    //     Some(user) => serde_json::to_string_pretty(user)?,
+    //     None => serde_json::to_string_pretty(&User::default())?,
+    // };
+    Ok("Sus among us".into())
+    // Ok(user.into())
 }

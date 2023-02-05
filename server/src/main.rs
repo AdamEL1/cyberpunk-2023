@@ -2,16 +2,15 @@
 mod algo;
 mod courses;
 mod interface;
+mod prelude;
 mod users;
 use courses::Courses;
+use prelude::*;
 use std::sync::Arc;
 use std::sync::RwLock;
 use tide::http::headers::HeaderValue;
 use tide::security::{CorsMiddleware, Origin};
 use users::Users;
-
-const DEFAULT_USER: &str = "./default-users.json";
-const DEFAULT_COURSES: &str = "./default-courses.json";
 
 #[derive(Clone)]
 pub struct AppState {
@@ -22,8 +21,8 @@ pub struct AppState {
 impl AppState {
     fn new() -> Self {
         Self {
-            users: Arc::new(RwLock::new(Users::default())),
-            courses: Arc::new(RwLock::new(Courses::default())),
+            users: Arc::new(RwLock::new(Users::from_file(DEFAULT_USERS))),
+            courses: Arc::new(RwLock::new(Courses::from_file(DEFAULT_COURSES))),
         }
     }
 }
@@ -35,9 +34,6 @@ async fn main() -> tide::Result<()> {
         .allow_origin(Origin::from("*"))
         .allow_credentials(false);
     let state = AppState::new();
-    // for (user_id, _) in state.users.read().unwrap().iter() {
-    //     state.courses.
-    // }
     let mut app = tide::with_state(state);
     app.with(cors);
     app.at("/users/login").post(users::login);

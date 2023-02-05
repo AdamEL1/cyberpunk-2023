@@ -1,5 +1,6 @@
 use crate::{
     interface::{CourseRegister, JoinCourseInput, StateResult, UserInput, UserRegister},
+    prelude::*,
     AppState,
 };
 use std::{
@@ -7,7 +8,7 @@ use std::{
         hash_map::{DefaultHasher, Iter},
         HashMap,
     },
-    fs::File,
+    fs::{self, File},
     hash::{Hash, Hasher},
 };
 use tide::{prelude::*, Request};
@@ -78,11 +79,16 @@ impl Users {
         };
         users
     }
+    pub fn to_file(&self, filepath: &str) {
+        let data = serde_json::to_string_pretty(self).expect("Serialization failed.");
+        fs::write(filepath, data).expect("Can't save data.");
+    }
     pub fn get(&self, user_id: UserId) -> Option<&User> {
         self.0.get(&user_id)
     }
     pub fn insert(&mut self, user_id: UserId, user: User) {
         self.0.insert(user_id, user);
+        self.to_file(DEFAULT_USERS);
     }
     pub fn iter(&self) -> Iter<UserId, User> {
         self.0.iter()
@@ -139,12 +145,11 @@ pub async fn register(mut req: Request<AppState>) -> tide::Result {
     let user_id: UserId = user.clone().into();
     {
         let mut write = req.state().courses.write().unwrap();
-        // write.new_user(&user, user_id);
+        write.new_user(&user, user_id);
     }
     {
         let mut write = req.state().users.write().unwrap();
         write.insert(user_id, user.into());
-        println!("{:?}", write.0);
     }
     Ok(StateResult::new(true).into())
 }

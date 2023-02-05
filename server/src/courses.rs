@@ -1,12 +1,13 @@
 use crate::{
-    interface::{CourseRegister, JoinCourseInput, StateResult, UserInput},
+    interface::{CourseRegister, JoinCourseInput, StateResult, UserInput, UserRegister},
+    prelude::DEFAULT_COURSES,
     users::{User, UserId, Users},
     AppState,
 };
 use serde::{Deserialize, Serialize};
 use std::{
     collections::{hash_map::DefaultHasher, HashMap},
-    fs::File,
+    fs::{self, File},
     hash::{Hash, Hasher},
 };
 use tide::{prelude::*, Request};
@@ -44,16 +45,22 @@ impl Courses {
         };
         users
     }
+    pub fn to_file(&self, filepath: &str) {
+        let data = serde_json::to_string_pretty(self).expect("Serialization failed.");
+        fs::write(filepath, data).expect("Can't save data.");
+    }
     pub fn get(&self, course_id: String) -> Option<&Course> {
         self.0.get(&course_id)
     }
     pub fn insert(&mut self, course_id: String, course: Course) {
         self.0.insert(course_id, course);
+        self.to_file(DEFAULT_COURSES);
     }
-    pub fn new_user(&mut self, user: &User, user_id: UserId) {
+    pub fn new_user(&mut self, user: &UserRegister, user_id: UserId) {
         for course in user.courses.iter() {
-            self.add_user(user_id, course);
+            self.add_user(user_id, &course.title);
         }
+        self.to_file(DEFAULT_COURSES);
     }
     pub fn add_user(&mut self, user_id: UserId, course: &String) {
         match self.0.get_mut(course) {
@@ -64,6 +71,7 @@ impl Courses {
             }
             None => self.insert(course.clone(), Course::with_user(course.clone(), user_id)),
         };
+        self.to_file(DEFAULT_COURSES);
     }
 }
 

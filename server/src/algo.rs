@@ -8,11 +8,8 @@ use crate::{
     users::User,
 };
 
-pub fn find_matches(user: User, other_users: Vec<&User>, course: Course) -> WeightedUserList {
-    let mut users_match = vec![WeightedUser {
-        user: user.clone(),
-        weight: 0.0,
-    }];
+pub fn find_matches(user: User, other_users: Vec<User>, course: Course) -> WeightedUserList {
+    let mut users_match = vec![];
     let self_desc = user.description.to_array();
     let mut scores = [0; 4];
     let mean_user: isize = user.description.to_array().iter().sum();
@@ -29,7 +26,7 @@ pub fn find_matches(user: User, other_users: Vec<&User>, course: Course) -> Weig
         let weight = (user_score - (user_score - mean_other_user).abs()) as f64
             / user.description.to_array().len() as f64;
         let weighted_user = WeightedUser {
-            user: user.clone(),
+            user: other_user.clone(),
             weight,
         };
         users_match.push(weighted_user);

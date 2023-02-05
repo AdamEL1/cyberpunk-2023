@@ -1,16 +1,44 @@
 {
-  "3121005585550227419": {
-    "name": "Lemark",
-    "email": "poly",
-    "university": "poly",
+  "13208917683543818795": {
+    "name": "Patate",
+    "email": "asd",
+    "school": "Poly",
     "courses": [
       "MTH1007"
     ],
     "description": {
       "creativity": 0,
-      "punctuality": 0,
-      "responsability": 0,
+      "punctuality": 10,
+      "responsability": 10,
       "organized": 0
+    }
+  },
+  "3121005585550227419": {
+    "name": "Lemark",
+    "email": "poly",
+    "school": "poly",
+    "courses": [
+      "MTH1007"
+    ],
+    "description": {
+      "creativity": 0,
+      "punctuality": 10,
+      "responsability": 10,
+      "organized": 10
+    }
+  },
+  "12261454463783577897": {
+    "name": "Dude",
+    "email": "email",
+    "school": "Poly",
+    "courses": [
+      "MTH1007"
+    ],
+    "description": {
+      "creativity": 10,
+      "punctuality": 5,
+      "responsability": 0,
+      "organized": 2
     }
   }
 }

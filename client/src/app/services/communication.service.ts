@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CommunicationService {
-  private readonly BASE_URL: string = 'http://localhost:8080';
+  private readonly BASE_URL: string = 'http://132.207.31.103:80';
 
   constructor(private readonly http: HttpClient) { }
 

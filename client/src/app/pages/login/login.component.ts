@@ -31,6 +31,11 @@ export class LoginComponent implements OnInit {
     this.clearForm();
   }
 
+  get isFormValid(): boolean{
+    for(const formControl of this.form) if(!formControl.valid) return true;
+    return false;
+  }
+
   private clearForm(): void {
     for(let i = 0; i < NUM_FIELD_FORM; i++) this.form[i].reset();
   }

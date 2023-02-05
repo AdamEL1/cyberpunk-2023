@@ -43,10 +43,14 @@ export class RegisterComponent implements OnInit {
       }),
       description: getMockedDescription()
     };
-    console.log(user);
     const val = await this.communicationService.post<User, any>(user, REGISTER_USER_ROUTE);
     console.log(val);
     this.clearForm();
+  }
+
+  get isFormValid(): boolean{
+    for(const formControl of this.form) if(!formControl.valid) return true;
+    return false;
   }
 
   private clearForm(): void {

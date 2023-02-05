@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Course } from 'src/app/classes/course';
 import { getMockedDescription } from 'src/app/classes/description';
 import { User } from 'src/app/classes/user';
 import { REGISTER_USER_ROUTE } from 'src/app/constants';
 import { CommunicationService } from 'src/app/services/communication.service';
+import { UserManagerService } from 'src/app/services/user-manager.service';
 
 const NUM_FIELD_FORM = 5;
 
@@ -21,15 +23,11 @@ export enum FILED_INDEX {
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   public form: FormControl[] = [];
 
-  constructor(private communicationService: CommunicationService) { 
+  constructor(private communicationService: CommunicationService, private router: Router, private userManager: UserManagerService) { 
     for(let i = 0; i < NUM_FIELD_FORM; i++) this.form[i] = new FormControl("");
-  }
-
-  ngOnInit(): void {
-
   }
 
   async register() {
@@ -43,9 +41,11 @@ export class RegisterComponent implements OnInit {
       }),
       description: getMockedDescription()
     };
-    const val = await this.communicationService.post<User, any>(user, REGISTER_USER_ROUTE);
-    console.log(val);
+    const val = await this.communicationService.post<User, {state: boolean}>(user, REGISTER_USER_ROUTE);
+    // TODO, to implement handling getting an error;
+    this.userManager.connectUser(user);
     this.clearForm();
+    this.router.navigateByUrl('/user');
   }
 
   get isFormValid(): boolean{

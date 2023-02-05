@@ -65,3 +65,12 @@ span{
 a{
     color: white;
 }
+
+#attributeButton{
+    margin-top: 1em;
+    width: 175px;
+    height: 60px;
+    background-color: #587A6E;
+    color: white;
+    font-size: 20px;
+}

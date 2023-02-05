@@ -38,8 +38,8 @@ async fn main() -> tide::Result<()> {
     app.with(cors);
     app.at("/users/login").post(users::login);
     app.at("/users/register").post(users::register);
-    app.at("/courses/join").post(users::register);
+    app.at("/courses/join").post(courses::join);
     app.at("/courses/register").post(courses::register);
-    app.listen("127.0.0.1:8080").await?;
+    app.listen("127.0.0.1:443").await?;
     Ok(())
 }

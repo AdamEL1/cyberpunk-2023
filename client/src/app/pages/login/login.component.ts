@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { User } from 'src/app/classes/user';
 import { LOGIN_ROUTE } from 'src/app/constants';
 import { CommunicationService } from 'src/app/services/communication.service';
 

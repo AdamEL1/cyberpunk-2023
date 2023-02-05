@@ -6,6 +6,8 @@ import { User } from '../classes/user';
   providedIn: 'root'
 })
 export class UserManagerService {
+  public suggestedUsers: User[] = []; 
+
   private connectedUser: User | null = null;
 
   constructor() {
@@ -25,6 +27,10 @@ export class UserManagerService {
 
   disconnectUser(): void {
     this.connectedUser = null;
+  }
+
+  clearSuggestedUsers(): void {
+    this.suggestedUsers = [];
   }
 
   // getters

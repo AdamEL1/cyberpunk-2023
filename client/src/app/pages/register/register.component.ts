@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Course } from 'src/app/classes/course';
 import { User } from 'src/app/classes/user';
+import { REGISTER_USER_ROUTE } from 'src/app/constants';
 import { CommunicationService } from 'src/app/services/communication.service';
 
 const NUM_FIELD_FORM = 5;
@@ -42,7 +43,8 @@ export class RegisterComponent implements OnInit {
       Description: ''
     };
     console.log(user);
-    //await this.communicationService.post<User, >();
+    const val = await this.communicationService.post<User, any>(user, REGISTER_USER_ROUTE);
+    console.log(val);
     this.clearForm();
   }
 

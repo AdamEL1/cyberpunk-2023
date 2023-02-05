@@ -14,19 +14,13 @@ const NUM_FIELD_FORM = 2;
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   public form: FormControl[] = [];
   public loginState: boolean = true;
 
   constructor(private communicationService: CommunicationService, private userManger: UserManagerService, private router: Router) {
     this.form[0] = new FormControl("");
     this.form[1] = new FormControl("");
-  }
-
-  ngOnInit(): void {
-    setInterval(() => {
-      console.log(this.loginState);
-    }, 1000);
   }
 
   async login() {

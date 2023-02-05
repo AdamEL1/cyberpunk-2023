@@ -1,8 +1,48 @@
-.formContainer{
-    width: 300px;
+body .mainContainer{
+    background-color:rgb(66, 129, 114, 0.35);
+}
+
+img{
+    margin-bottom: 5%;
+    width: 680px;
+    height: 320px;
+    align-self: center;
+}
+
+button{
+    margin-top: 1em;
+    width: 250px;
+    height: 60px;
+    background-color: #587A6E;
+    color: white;
+    font-size: 20px;
+}
+
+input{
+    background-color: #d9d9d9;
+    border: none;
+    height: 30px;
+    width: 200px;
+    margin-bottom: 5px;
+}
+
+label{
+    margin-left: 0.5em;
+    margin-bottom: 5px;
+}
+
+.mainContainer{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    align-content: center;
+    padding-bottom: 100px;
+}
+
+.formContainer{
+    color: white;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
     margin-bottom: 5px;
     margin-top: 5px;
 }
@@ -12,8 +52,16 @@
     align-self: center;
     flex-direction: column;
     align-items: center;
-    border: solid black 1px;
-    border-radius: 5px;
     width: 400px;
     margin-bottom: 10px;
+}
+
+span{
+    align-self: center;
+    font-size: 18px;
+    color: white;
+}
+
+a{
+    color: white;
 }

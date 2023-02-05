@@ -3,7 +3,10 @@ body{
 }
 
 img{
-    margin-bottom: 10%;
+    margin-bottom: 5%;
+    width: 680px;
+    height: 320px;
+    align-self: center;
 }
 
 .mainContainer{

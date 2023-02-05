@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
-    this.communicationService.post<{username: string, password: string}, User>({
-      username: this.form[0].value,
+    this.communicationService.post<{name: string, password: string}, User>({
+      name: this.form[0].value,
       password: this.form[1].value,
     }, LOGIN_ROUTE);
     this.clearForm();

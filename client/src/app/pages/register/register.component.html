@@ -24,10 +24,10 @@
             </div>
 
             <div class="formContainer">
-                <label for="courses">Courses (separated by ',' ex: INF3710,MTH1101)</label>
+                <label for="courses">Courses (split by ",")</label>
                 <input type="text" [formControl]="form[4]" id="courses">
             </div>
-
+            <button id="attributeButton" mat-raised-button (click)="openAttributeBox()">Attributes</button>
             <button mat-raised-button [disabled]="isFormValid" (click)="register()">Register</button>
         </form>
     </div>

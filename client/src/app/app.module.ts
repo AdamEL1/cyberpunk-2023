@@ -16,6 +16,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { CourseDialogComponent } from './components/course-dialog/course-dialog.component';
 import { SuggestedUsersComponent } from './pages/suggested-users/suggested-users.component';
 import { SecondaryHeaderComponent } from './components/secondary-header/secondary-header.component';
+import { SliderDialogueComponent } from './components/slider-dialogue/slider-dialogue.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { SecondaryHeaderComponent } from './components/secondary-header/secondar
     UserComponent,
     CourseDialogComponent,
     SuggestedUsersComponent,
-    SecondaryHeaderComponent
+    SecondaryHeaderComponent,
+    SliderDialogueComponent
   ],
   imports: [
     BrowserModule,

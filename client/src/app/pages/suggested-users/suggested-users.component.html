@@ -1,11 +1,12 @@
 <body>
     <app-secondary-header></app-secondary-header>
+    <div id="suggestedUsersTag">Suggested Users:</div>
     <div class="usersContainer">
         <div class="userContainer" *ngFor="let user of userManager.suggestedUsers; index as i;">
             <div class="subContainer">
                 <span class="title">{{ user.user.name }}</span>
-                <span></span>
             </div>
+            <button mat-raised-button>Select</button>
         </div>
     </div>
 </body>

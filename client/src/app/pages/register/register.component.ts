@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/classes/course';
 import { getMockedDescription } from 'src/app/classes/description';
 import { User } from 'src/app/classes/user';
+import { SliderDialogueComponent } from 'src/app/components/slider-dialogue/slider-dialogue.component';
 import { REGISTER_USER_ROUTE } from 'src/app/constants';
 import { CommunicationService } from 'src/app/services/communication.service';
 import { UserManagerService } from 'src/app/services/user-manager.service';
@@ -25,8 +27,9 @@ export enum FILED_INDEX {
 })
 export class RegisterComponent {
   public form: FormControl[] = [];
+  private attributeOpened = false;
 
-  constructor(private communicationService: CommunicationService, private router: Router, private userManager: UserManagerService) { 
+  constructor(private communicationService: CommunicationService, private router: Router, private userManager: UserManagerService, private dialog: MatDialog ) { 
     for(let i = 0; i < NUM_FIELD_FORM; i++) this.form[i] = new FormControl("");
   }
 
@@ -48,7 +51,13 @@ export class RegisterComponent {
     this.router.navigateByUrl('/user');
   }
 
+  openAttributeBox(){
+    this.attributeOpened = true;
+    this.dialog.open(SliderDialogueComponent);
+  }
+
   get isFormValid(): boolean{
+    if(!this.attributeOpened) return false;
     for(const formControl of this.form) if(!formControl.valid) return true;
     return false;
   }

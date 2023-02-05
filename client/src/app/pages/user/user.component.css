@@ -30,7 +30,6 @@ body{
     background-color: #d9d9d9;
     width: 250px;
     height: 250px;
-    border: solid black 1px;
     margin-right: 20px;
     margin-bottom: 20px;
 }
@@ -44,6 +43,7 @@ body{
     font-size: 1.5em;
     font-weight: bold;
     color: black;
+    justify-content: center;
 }
 
 .buttonContainer{

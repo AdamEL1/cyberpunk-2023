@@ -17,6 +17,8 @@ import { CourseDialogComponent } from './components/course-dialog/course-dialog.
 import { SuggestedUsersComponent } from './pages/suggested-users/suggested-users.component';
 import { SecondaryHeaderComponent } from './components/secondary-header/secondary-header.component';
 import { SliderDialogueComponent } from './components/slider-dialogue/slider-dialogue.component';
+import {MatCardModule} from '@angular/material/card';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +44,7 @@ import { SliderDialogueComponent } from './components/slider-dialogue/slider-dia
     ReactiveFormsModule,
     MatInputModule,
     MatDialogModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

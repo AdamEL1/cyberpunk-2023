@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     if(this.isUserValid(user)){
+      this.userManger.connectUser(user);
       this.loginState = true;
       this.clearForm();
       this.router.navigateByUrl('/user');

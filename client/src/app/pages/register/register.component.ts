@@ -3,7 +3,6 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/classes/course';
-import { getMockedDescription } from 'src/app/classes/description';
 import { User } from 'src/app/classes/user';
 import { SliderDialogueComponent } from 'src/app/components/slider-dialogue/slider-dialogue.component';
 import { REGISTER_USER_ROUTE } from 'src/app/constants';
@@ -28,6 +27,7 @@ export enum FILED_INDEX {
 export class RegisterComponent {
   public form: FormControl[] = [];
   private attributeOpened = false;
+  private description: number[] = [];
 
   constructor(private communicationService: CommunicationService, private router: Router, private userManager: UserManagerService, private dialog: MatDialog ) { 
     for(let i = 0; i < NUM_FIELD_FORM; i++) this.form[i] = new FormControl("");
@@ -42,7 +42,7 @@ export class RegisterComponent {
       courses: (this.form[FILED_INDEX.COURSES_FIELD_INDEX].value as string).split(',').map((value: string): Course => {
         return {title: value};
       }),
-      description: getMockedDescription()
+      description: this.description,
     };
     const val = await this.communicationService.post<User, {state: boolean}>(user, REGISTER_USER_ROUTE);
     // TODO, to implement handling getting an error;
@@ -51,15 +51,18 @@ export class RegisterComponent {
     this.router.navigateByUrl('/user');
   }
 
-  openAttributeBox(){
-    this.attributeOpened = true;
-    this.dialog.open(SliderDialogueComponent);
+  async openAttributeBox(){
+    const ref = this.dialog.open(SliderDialogueComponent);
+    ref.afterClosed().subscribe((passed: {data: number[]}) => {
+      this.description = passed.data;
+      this.attributeOpened = true;
+    })
   }
 
   get isFormValid(): boolean{
     if(!this.attributeOpened) return false;
-    for(const formControl of this.form) if(!formControl.valid) return true;
-    return false;
+    for(const formControl of this.form) if(!formControl.valid) return false;
+    return true;
   }
 
   private clearForm(): void {

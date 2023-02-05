@@ -5,30 +5,30 @@
         <form class="mainForm">
             <div class="formContainer">
                 <label for="username">Username:</label>
-                <input type="text" [formControl]="form[0]" id="username">
+                <input type="text" [formControl]="form[0]" id="username" required>
             </div>
         
             <div class="formContainer">
                 <label for="password">Password:</label>
-                <input type="text" [formControl]="form[1]" id="password">
+                <input type="text" [formControl]="form[1]" id="password" required>
             </div>
 
             <div class="formContainer">
                 <label for="university">University</label>
-                <input type="text" [formControl]="form[2]" id="university">
+                <input type="text" [formControl]="form[2]" id="university" required>
             </div>
             
             <div class="formContainer">
                 <label for="email">Email</label>
-                <input type="text" [formControl]="form[3]" id="email">
+                <input type="text" [formControl]="form[3]" id="email" required>
             </div>
 
             <div class="formContainer">
                 <label for="courses">Courses (split by ",")</label>
-                <input type="text" [formControl]="form[4]" id="courses">
+                <input type="text" [formControl]="form[4]" id="courses" required>
             </div>
             <button id="attributeButton" mat-raised-button (click)="openAttributeBox()">Attributes</button>
-            <button mat-raised-button [disabled]="isFormValid" (click)="register()">Register</button>
+            <button mat-raised-button [disabled]="!isFormValid" (click)="register()">Register</button>
         </form>
     </div>
 </body>

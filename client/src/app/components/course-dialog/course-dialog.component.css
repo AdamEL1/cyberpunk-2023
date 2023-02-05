@@ -1,0 +1,36 @@
+.fieldContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.mainForm{
+    width: 200px;
+    height: 200px;
+}
+
+.fieldContainer{
+    color: white;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+button{
+    margin-top: 1em;
+    width: 100%;
+    height: 50px;
+    background-color: #587A6E;
+    color: white;
+    font-size: 20px;
+}
+
+input{
+    margin-top: 10px;
+    background-color: #d9d9d9;
+    border: none;
+    height: 30px;
+    width: 200px;
+    margin-bottom: 5px;
+}

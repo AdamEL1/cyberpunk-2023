@@ -30,7 +30,7 @@ impl AppState {
 #[tokio::main]
 async fn main() -> tide::Result<()> {
     let cors = CorsMiddleware::new()
-        .allow_methods("POST".parse::<HeaderValue>().unwrap())
+        .allow_methods("GET, POST".parse::<HeaderValue>().unwrap())
         .allow_origin(Origin::from("*"))
         .allow_credentials(false);
     let state = AppState::new();

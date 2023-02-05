@@ -1,3 +1,11 @@
 <body>
     <app-secondary-header></app-secondary-header>
+    <div class="usersContainer">
+        <div class="userContainer" *ngFor="let user of userManager.suggestedUsers; index as i;">
+            <div class="subContainer">
+                <span class="title">{{ user.name }}</span>
+                <span></span>
+            </div>
+        </div>
+    </div>
 </body>

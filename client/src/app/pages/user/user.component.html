@@ -1,21 +1,29 @@
-<p>user works!</p>
-<div class="mainContainer">
-    <div>Insert Picture</div>
-    <div class="subContainer">
-        <span>Name</span>
-        <span>{{ userManager.getUser()?.name }}</span>
+<body class="bodyContainer">
+    <div class="header">
+        <img src="../../../assets/upperLogo.png" />
+        <div class="infoContainer">
+            <span>{{userManager.getUser()?.name}}</span>
+            <span>{{userManager.getUser()?.school}}</span>
+        </div>
     </div>
-    <div class="subContainer">
-        <span>School</span>
-        <span>{{ userManager.getUser()?.school }}</span>
-    </div>
-    <div class="coursesContainer">
-        <div class="courseContainer" *ngFor="let course of userManager.getUser()?.courses; index as i;">
-            <div class="subContainer">
-                <span>Title</span>
-                <span>{{ course.title }}</span>
+    <div class="mainContainer">
+        <div>Insert Picture</div>
+        <div class="subContainer">
+            <span>Name</span>
+            <span>{{ userManager.getUser()?.name }}</span>
+        </div>
+        <div class="subContainer">
+            <span>School</span>
+            <span>{{ userManager.getUser()?.school }}</span>
+        </div>
+        <div class="coursesContainer">
+            <div class="courseContainer" *ngFor="let course of userManager.getUser()?.courses; index as i;">
+                <div class="subContainer">
+                    <span>Title</span>
+                    <span>{{ course.title }}</span>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<button mat-raised-button (click)="openDialog()">Add classe</button>
+    <button mat-raised-button (click)="openDialog()">Add classe</button>
+</body>

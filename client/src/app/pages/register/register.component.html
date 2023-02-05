@@ -28,7 +28,7 @@
                 <input type="text" [formControl]="form[4]" id="courses">
             </div>
 
-            <button mat-raised-button (click)="register()">Register</button>
+            <button mat-raised-button [disabled]="isFormValid" (click)="register()">Register</button>
         </form>
     </div>
 </body>

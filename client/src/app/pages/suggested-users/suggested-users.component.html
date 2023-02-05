@@ -8,7 +8,7 @@
                 <p>{{ user.user.description }}</p>
             </div>
             <a href="{{email}}">
-                <button mat-raised-button>Select</button>
+                <button mat-raised-button (click)="sendEmail(user.user)">Select</button>
             </a>
         </div>
     </div>

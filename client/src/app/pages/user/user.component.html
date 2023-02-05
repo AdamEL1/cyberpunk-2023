@@ -1,11 +1,5 @@
 <body class="bodyContainer">
-    <div class="header">
-        <img src="../../../assets/upperLogo.png" />
-        <div class="infoContainer">
-            <span>{{userManager.getUser()?.name}}</span>
-            <span>{{userManager.getUser()?.school}}</span>
-        </div>
-    </div>
+    <app-secondary-header></app-secondary-header>
     <div id="coursesTag">Courses:</div>
     <div class="coursesContainer">
         <div class="courseContainer" *ngFor="let course of userManager.getUser()?.courses; index as i;">

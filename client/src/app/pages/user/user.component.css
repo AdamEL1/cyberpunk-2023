@@ -12,24 +12,6 @@ body{
     color: black;
 }
 
-.header{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.infoContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: right;
-    margin-right: 150px;
-}
-
-.infoContainer *{
-    margin-bottom: 1em;
-    font-size: 1.5em;
-}
-
 .subContainer{
     display: flex;
     margin-left: 20px;

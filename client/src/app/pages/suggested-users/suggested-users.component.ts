@@ -10,6 +10,4 @@ export class SuggestedUsersComponent {
 
   constructor(public userManager: UserManagerService) { }
 
-
-
 }

@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/classes/course';
+import { SuggestedUser } from 'src/app/classes/suggestedUser';
 import { User } from 'src/app/classes/user';
 import { CourseDialogComponent } from 'src/app/components/course-dialog/course-dialog.component';
+import { SUGGESTION_USERS_ROUTE } from 'src/app/constants';
+import { CommunicationService } from 'src/app/services/communication.service';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 
 @Component({
@@ -13,7 +16,7 @@ import { UserManagerService } from 'src/app/services/user-manager.service';
 })
 export class UserComponent {
 
-  constructor(public userManager: UserManagerService, public dialog:MatDialog, private router: Router) { }
+  constructor(public userManager: UserManagerService, public dialog:MatDialog, private router: Router, private communicationService: CommunicationService) { }
 
   openDialog(): void{
     const dialogRef = this.dialog.open(CourseDialogComponent);
@@ -21,7 +24,7 @@ export class UserComponent {
 
   async getSuggestedUsers(course: Course){
     console.log(course);
-    type weihgtedSuggestions = {data: {weight: number, user: User}[]};
+    type weihgtedSuggestions = {data: SuggestedUser[]};
     type CourseSuggestionData = {name: string, password: string, course: Course};
     const courseSuggestionData: CourseSuggestionData = {
       name: this.userManager.getUser()!.name,
@@ -29,8 +32,10 @@ export class UserComponent {
       course: course
     };
     // request
+    const suggestionData: weihgtedSuggestions = await this.communicationService.post<CourseSuggestionData, weihgtedSuggestions>(courseSuggestionData, SUGGESTION_USERS_ROUTE);
     // save data in user-management
-    this.router.navigateByUrl('suggested-users')
+    this.userManager.suggestedUsers = suggestionData.data;
+    this.router.navigateByUrl('suggested-users');
   }
 
 }

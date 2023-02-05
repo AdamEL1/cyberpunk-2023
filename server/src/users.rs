@@ -17,7 +17,7 @@ pub struct User {
     name: String,
     email: String,
     university: String,
-    courses: Vec<String>,
+    pub courses: Vec<String>,
     description: Description,
 }
 
@@ -34,18 +34,18 @@ impl Default for User {
 }
 
 #[derive(Debug, Deserialize, Serialize, Default, Clone)]
-struct Description {
+pub struct Description {
     creativity: isize,
-    punctiality: isize,
+    punctuality: isize,
     responsability: isize,
     organized: isize,
 }
 
 impl Description {
-    fn new(creativity: isize, punctiality: isize, responsability: isize, organized: isize) -> Self {
+    fn new(creativity: isize, punctuality: isize, responsability: isize, organized: isize) -> Self {
         Self {
             creativity,
-            punctiality,
+            punctuality,
             responsability,
             organized,
         }
@@ -86,7 +86,7 @@ impl From<UserRegister> for User {
         Self {
             name: user.name,
             email: user.email,
-            university: user.university,
+            university: user.school,
             courses: user.courses.iter().map(|x| x.name.clone()).collect(),
             description: Description::default(),
         }
@@ -129,10 +129,10 @@ pub async fn register(mut req: Request<AppState>) -> tide::Result {
         }
     };
     let user_id: UserId = user.clone().into();
-    // {
-    //     let mut write = req.state().courses.write().unwrap();
-    //     write.add_user(&user);
-    // }
+    {
+        let mut write = req.state().courses.write().unwrap();
+        // write.add_user(&user.into());
+    }
     {
         let mut write = req.state().users.write().unwrap();
         write.insert(user_id, user.into());

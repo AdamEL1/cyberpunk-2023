@@ -1,6 +1,6 @@
 use tide::{prelude::*, Request};
 
-use crate::courses::Course;
+use crate::{courses::Course, users::Description};
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct CourseRegister {
@@ -11,9 +11,10 @@ pub struct CourseRegister {
 pub struct UserRegister {
     pub name: String,
     pub password: String,
-    pub email: String,
-    pub university: String,
+    pub school: String,
     pub courses: Vec<CourseRegister>,
+    pub email: String,
+    pub description: Description,
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone)]

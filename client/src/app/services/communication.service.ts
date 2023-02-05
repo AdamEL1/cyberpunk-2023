@@ -6,16 +6,20 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CommunicationService {
-  private readonly BASE_URL: string = '';
+  private readonly BASE_URL: string = 'localhost:8080';
 
   constructor(private readonly http: HttpClient) { }
 
   async get<T>(route: string){
-    return await this.observableToPromise(this.http.get(`${this.BASE_URL}/${route}`));
+    const endPoint: string = `${this.BASE_URL}/${route}`;
+    console.log(`GET, at: ${endPoint}`);
+    return await this.observableToPromise(this.http.get(endPoint));
   }
 
   async post<T, R>(body: T, route: string){
-    return await this.observableToPromise<R>(this.http.post<R>(`${this.BASE_URL}/${route}`, body));
+    const endPoint: string = `${this.BASE_URL}/${route}`;
+    console.log(`POST, at: ${endPoint}`);
+    return await this.observableToPromise<R>(this.http.post<R>(endPoint, body));
   }
 
   private async observableToPromise<T>(observable: Observable<T>): Promise<T> {

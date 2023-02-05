@@ -1,6 +1,6 @@
 use crate::{
     interface::{CourseRegister, JoinCourseInput, StateResult, UserInput, UserRegister},
-    prelude::DEFAULT_COURSES,
+    prelude::{DEFAULT_COURSES, DEFAULT_USERS},
     users::{User, UserId, Users},
     AppState,
 };
@@ -105,5 +105,7 @@ pub async fn join(mut req: Request<AppState>) -> tide::Result {
     let user_id: UserId = user_register.into();
     let mut write = req.state().courses.write().unwrap();
     write.add_user(user_id, &input.course.title);
+    let read = req.state().users.read().unwrap();
+    read.to_file(DEFAULT_USERS);
     Ok(StateResult::new(true).into())
 }

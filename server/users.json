@@ -1,10 +1,10 @@
 {
   "3121005585550227419": {
     "name": "Lemark",
-    "email": "marc-antoine.manningham@polymtl.ca",
-    "university": "Polytechnique Montreal",
+    "email": "poly",
+    "university": "poly",
     "courses": [
-      "INF1015"
+      "MTH1007"
     ],
     "description": {
       "creativity": 0,

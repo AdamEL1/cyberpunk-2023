@@ -1,4 +1,8 @@
-use crate::{interface::CourseRegister, users::UserId, AppState};
+use crate::{
+    interface::CourseRegister,
+    users::{UserId, Users},
+    AppState,
+};
 use serde::{Deserialize, Serialize};
 use std::{
     collections::{hash_map::DefaultHasher, HashMap},
@@ -37,13 +41,11 @@ impl Courses {
     pub fn insert(&mut self, course_id: String, course: Course) {
         self.0.insert(course_id, course);
     }
-    pub fn add_user(&mut self, user: &UserId) {
-        for (name, course) in self.0.iter_mut() {
-            if !course.users.contains(user) {
-                course.users.push(*user);
-            }
-        }
-    }
+    // pub fn add_user(&mut self, users: &Users) {
+    //     for (user_id, user) in users.iter() {
+    //         for course in user.
+    //     }
+    // }
 }
 
 impl From<CourseRegister> for Course {

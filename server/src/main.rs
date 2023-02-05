@@ -28,6 +28,9 @@ impl AppState {
 #[tokio::main]
 async fn main() -> tide::Result<()> {
     let state = AppState::new();
+    // for (user_id, _) in state.users.read().unwrap().iter() {
+    //     state.courses.
+    // }
     let mut app = tide::with_state(state);
     app.at("/users/login").post(users::login);
     app.at("/users/register").post(users::register);

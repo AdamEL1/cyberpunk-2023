@@ -26,5 +26,10 @@ pub struct UserInput {
 pub struct AddCourseInput {
     pub name: String,
     pub password: String,
-    pub Course: CourseRegister,
+    pub course: CourseRegister,
+}
+
+#[derive(Debug, Deserialize, Serialize, Clone)]
+pub struct UserRegisterResult {
+    pub state: bool,
 }

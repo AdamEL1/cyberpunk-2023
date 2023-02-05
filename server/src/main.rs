@@ -38,6 +38,7 @@ async fn main() -> tide::Result<()> {
     //     state.courses.
     // }
     let mut app = tide::with_state(state);
+    app.with(cors);
     app.at("/users/login").post(users::login);
     app.at("/users/register").post(users::register);
     // app.at("/users/join_course").post(users::register);

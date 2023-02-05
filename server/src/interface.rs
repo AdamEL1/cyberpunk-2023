@@ -4,7 +4,7 @@ use crate::{courses::Course, users::Description};
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct CourseRegister {
-    pub name: String,
+    pub title: String,
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone)]

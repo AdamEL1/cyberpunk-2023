@@ -19,8 +19,13 @@
             </div>
             
             <div class="formContainer">
+                <label for="email">Email</label>
+                <input type="text" [formControl]="form[3]" id="email">
+            </div>
+
+            <div class="formContainer">
                 <label for="courses">Courses (separated by ',' ex: INF3710,MTH1101)</label>
-                <input type="text" [formControl]="form[3]" id="courses">
+                <input type="text" [formControl]="form[4]" id="courses">
             </div>
 
             <button mat-raised-button (click)="register()">Register</button>

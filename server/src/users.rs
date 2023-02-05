@@ -1,4 +1,7 @@
-use crate::AppState;
+use crate::{
+    interface::{UserInput, UserRegister},
+    AppState,
+};
 use std::{
     collections::{hash_map::DefaultHasher, HashMap},
     fs::File,
@@ -78,16 +81,10 @@ impl From<UserRegister> for User {
             name: user.name,
             email: user.email,
             university: user.university,
-            courses: user.courses,
-            description: user.description,
+            courses: user.courses.iter().map(|x| x.name.clone()).collect(),
+            description: Description::default(),
         }
     }
-}
-
-#[derive(Debug, Deserialize, Serialize, Clone)]
-struct UserInput {
-    name: String,
-    password: String,
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone, Copy, Eq, PartialEq, Hash)]
@@ -99,16 +96,6 @@ impl From<UserInput> for UserId {
         value.password.hash(&mut state);
         UserId(state.finish())
     }
-}
-
-#[derive(Debug, Deserialize, Serialize, Clone)]
-struct UserRegister {
-    name: String,
-    password: String,
-    email: String,
-    university: String,
-    courses: Vec<String>,
-    description: Description,
 }
 
 impl From<UserRegister> for UserId {
@@ -125,12 +112,20 @@ pub async fn register(mut req: Request<AppState>) -> tide::Result {
         Ok(value) => value,
         Err(err) => return Ok(format!("{}\n", err).into()),
     };
-    println!("Received POST for register user: {}", user.name);
+    println!("Received POST at {}: {}", req.url(), user.name);
     let user_id: UserId = user.clone().into();
-    let mut write = req.state().users.write().unwrap();
-    write.insert(user_id, user.into());
+    {
+        let mut write = req.state().courses.write().unwrap();
+        write.add_user(&user_id);
+    }
+    {
+        let mut write = req.state().users.write().unwrap();
+        write.insert(user_id, user.into());
+    }
     Ok(format!("Ok\n").into())
 }
+
+// pub async fn join_course(mut req: Request<AppState>) -> tide::Result {}
 
 pub async fn login(mut req: Request<AppState>) -> tide::Result {
     let user_id: UserId = req.body_json::<UserInput>().await?.into();
@@ -139,6 +134,6 @@ pub async fn login(mut req: Request<AppState>) -> tide::Result {
         Some(user) => serde_json::to_string_pretty(user)?,
         None => serde_json::to_string_pretty(&User::default())?,
     };
-    println!("Received POST for login: UserID({})", user_id.0);
+    println!("Received POST at {}: UserID({})", req.url(), user_id.0);
     Ok(user.into())
 }

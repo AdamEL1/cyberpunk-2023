@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserManagerService } from 'src/app/services/user-manager.service';
 
 @Component({
@@ -8,6 +9,8 @@ import { UserManagerService } from 'src/app/services/user-manager.service';
 })
 export class SuggestedUsersComponent {
 
-  constructor(public userManager: UserManagerService) { }
+  constructor(public userManager: UserManagerService, private router: Router) { 
+    if(!this.userManager.getUser()) router.navigateByUrl("");
+  }
 
 }

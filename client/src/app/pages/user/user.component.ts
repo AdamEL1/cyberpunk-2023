@@ -16,7 +16,9 @@ import { UserManagerService } from 'src/app/services/user-manager.service';
 })
 export class UserComponent {
 
-  constructor(public userManager: UserManagerService, public dialog:MatDialog, private router: Router, private communicationService: CommunicationService) { }
+  constructor(public userManager: UserManagerService, public dialog:MatDialog, private router: Router, private communicationService: CommunicationService) {
+    if(!this.userManager.getUser()) router.navigateByUrl("");
+  }
 
   openDialog(): void{
     const dialogRef = this.dialog.open(CourseDialogComponent);

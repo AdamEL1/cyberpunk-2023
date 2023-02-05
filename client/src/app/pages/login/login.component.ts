@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { LOGIN_ROUTE } from 'src/app/constants';
 import { CommunicationService } from 'src/app/services/communication.service';
 
 const NUM_FIELD_FORM = 2;
@@ -12,7 +13,7 @@ const NUM_FIELD_FORM = 2;
 export class LoginComponent implements OnInit {
   public form: FormControl[] = [];
 
-  constructor(communicationService: CommunicationService) {
+  constructor(private communicationService: CommunicationService) {
     this.form[0] = new FormControl("");
     this.form[1] = new FormControl("");
   }
@@ -22,8 +23,10 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
-    console.log(this.form[0].value);
-    console.log(this.form[1].value);
+    this.communicationService.post<{username: string, password: string}, User>({
+      username: this.form[0].value,
+      password: this.form[1].value,
+    }, LOGIN_ROUTE);
     this.clearForm();
   }
 

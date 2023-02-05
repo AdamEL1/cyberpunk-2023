@@ -1,14 +1,41 @@
-<p>register works!</p>
-<form class="mainForm">
-    <div class="formContainer">
-        <label for="username">Username</label>
-        <input type="text" id="username">
-    </div>
+<!-- <body>
 
-    <div class="formContainer">
-        <label for="password">Password</label>
-        <input type="text" id="password">
-    </div>
+    <form class="mainForm">
+        <div class="formContainer">
+            <label for="username">Username</label>
+            <input type="text" id="username">
+        </div>
     
-    <button (click)="register()">Submit</button>
-</form>
+        <div class="formContainer">
+            <label for="password">Password</label>
+            <input type="text" id="password">
+        </div>
+        
+        <button mat-button (click)="register()">Submit</button>
+    </form>
+</body> -->
+
+<body>
+    <div class="mainContainer">
+        <img src="../../../assets/logo.png" alt="Logo"/>
+
+        <form class="mainForm">
+            <div class="formContainer">
+                <label for="username">Username:</label>
+                <input type="text" [formControl]="form[0]" id="username">
+            </div>
+        
+            <div class="formContainer">
+                <label for="password">Password:</label>
+                <input type="text" [formControl]="form[1]" id="password">
+            </div>
+
+            <div class="formContainer">
+                <label for="password">University</label>
+                <input type="text" [formControl]="form[2]" id="university">
+            </div>
+            
+            <button mat-raised-button (click)="register()">Register</button>
+        </form>
+    </div>
+</body>

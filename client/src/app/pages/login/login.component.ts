@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     if(this.isUserValid(user)){
+      user.password = this.form[1].value;
       console.log(user);
       this.userManger.connectUser(user);
       this.loginState = true;

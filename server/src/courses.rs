@@ -68,7 +68,7 @@ impl Courses {
 impl From<CourseRegister> for Course {
     fn from(value: CourseRegister) -> Self {
         Self {
-            name: value.name,
+            name: value.title,
             users: vec![],
         }
     }
@@ -81,6 +81,6 @@ pub async fn register(mut req: Request<AppState>) -> tide::Result {
         Err(err) => return Ok(format!("{}\n", err).into()),
     };
     let mut write = req.state().courses.write().unwrap();
-    write.insert(course.name.clone(), course.into());
+    write.insert(course.title.clone(), course.into());
     Ok("Ok\n".into())
 }

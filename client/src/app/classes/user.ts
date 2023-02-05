@@ -1,5 +1,4 @@
 import { Course } from "./course";
-import { Description } from "./description";
 
 export interface User{
     name: string,
@@ -7,5 +6,5 @@ export interface User{
     school: string,
     courses: Course[],
     email: string,
-    description: Description
+    description: number[]
 }

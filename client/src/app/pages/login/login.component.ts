@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/classes/course';
-import { Description } from 'src/app/classes/description';
 import { User } from 'src/app/classes/user';
 import { LOGIN_ROUTE } from 'src/app/constants';
 import { CommunicationService } from 'src/app/services/communication.service';

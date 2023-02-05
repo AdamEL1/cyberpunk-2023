@@ -1,0 +1,14 @@
+.fielContainer{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.mainForm{
+    display: flex;
+    flex-direction: column;
+}
+
+button{
+    align-self: center;
+}

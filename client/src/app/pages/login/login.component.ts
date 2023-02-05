@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Course } from 'src/app/classes/course';
+import { Description } from 'src/app/classes/description';
 import { User } from 'src/app/classes/user';
 import { LOGIN_ROUTE } from 'src/app/constants';
 import { CommunicationService } from 'src/app/services/communication.service';
@@ -35,6 +37,9 @@ export class LoginComponent implements OnInit {
         name: this.form[0].value,
         password: this.form[1].value,
       }, LOGIN_ROUTE);
+      user.courses = (user.courses as unknown as string[]).map((title: string): Course => {
+        return { title: title };
+      })
     }catch{
       console.log("catched");
       this.loginState = false;
@@ -42,10 +47,10 @@ export class LoginComponent implements OnInit {
     }
     if(this.isUserValid(user)){
       console.log(user);
-      //this.userManger.connectUser(user);
-      //this.loginState = true;
-      //this.clearForm();
-      //this.router.navigateByUrl('/user');
+      this.userManger.connectUser(user);
+      this.loginState = true;
+      this.clearForm();
+      this.router.navigateByUrl('/user');
       return;
     }
     this.loginState = false;

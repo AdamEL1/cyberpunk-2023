@@ -31,7 +31,7 @@ impl AppState {
 async fn main() -> tide::Result<()> {
     let cors = CorsMiddleware::new()
         .allow_methods("GET, POST".parse::<HeaderValue>().unwrap())
-        .allow_origin(Origin::from("*"))
+        .allow_origin(Origin::Any)
         .allow_credentials(false);
     let state = AppState::new();
     let mut app = tide::with_state(state);
